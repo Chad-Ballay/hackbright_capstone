@@ -1,3 +1,6 @@
 [submodule "environment/vagrant-active-directory"]
 	path = environment/vagrant-active-directory
 	url = https://github.com/splitbrain/vagrant-active-directory.git
+[submodule "environment/bitwarden-compose-example"]
+	path = environment/bitwarden-compose-example
+	url = https://github.com/Pulsar/bitwarden-compose-example.git
