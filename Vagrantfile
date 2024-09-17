@@ -1,28 +1,14 @@
 Vagrant.configure("2") do |config|
-
-    config.vm.define "kali" do |kali|
-        kali.vm.box = "kalilinux/rolling"
-        kali.vm.hostname = "kali-linux"
-        kali.vm.network "private_network", type: "dhcp",
-            virtualbox__intnet: "sandboxnet"
-        kali.vm.provider "virtualbox" do |vb|
-            vb.name = "Kali Linux"
-            vb.memory = 8192
-            vb.cpus = 2
-
-        end
-    end
-
-    # config.vm.define "metasploitable3" do |metasploitable3|
-    #     metasploitable3.vm.box = "rapid7/metasploitable3-win2k8"
-    #     metasploitable3.vm.hostname = "metasploitable2-win2k8"
-    #     metasploitable3.vm.network "private_network", type: "dhcp",
-    #         virtualbox__intnet: "sandboxnet"
-    #     metasploitable3.vm.provider "virtualbox" do |vb|
-    #         vb.name = "Metasploitable 3"
-    #         vb.memory = 4096
-    #         vb.cpus = 2
-    #         vb.customize ["modifyvm", :id, "--vram", "32"]
-    #     end
-    # end
+#  config.vm.define "android" do |android|
+#    android.vm.box = "PENPRO/android"
+#    android.vm.box_version = "1.0"
+#  end
+  config.vm.define "ubuntu" do |unbuntu|
+    unbuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2404-lts"
+    unbuntu.vm.box_version = "2404.0.2408"
+  end
+  config.vm.define "windows" do |windows|
+    windows.vm.box = "gusztavvargadr/windows-11"
+    windows.vm.box_version = "2302.0.2408"
+  end
 end
