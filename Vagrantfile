@@ -9,7 +9,6 @@ Vagrant.configure("2") do |config|
     ubuntu.vm.provider "virtualbox" do |vb, override|
       vb.memory = "8192"
       vb.cpus ="2"
-      vb.name = "linux_desktop"
       vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
     ubuntu.vm.provision "shell" do |script|
@@ -25,7 +24,6 @@ Vagrant.configure("2") do |config|
     windows.vm.provider "virtualbox" do |vb, override|
       vb.memory = "8192"
       vb.cpus ="2"
-      vb.name = "windows_desktop"
       vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
   end
@@ -38,7 +36,6 @@ Vagrant.configure("2") do |config|
     bw.vm.provider "virtualbox" do |vb, override|
       vb.memory = "4096"
       vb.cpus = "1"
-      vb.name = "bitwarden"
       vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
     bw.vm.provision "shell" do |script|
