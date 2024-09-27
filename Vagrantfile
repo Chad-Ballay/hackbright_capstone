@@ -2,15 +2,31 @@ Vagrant.configure("2") do |config|
   config.vagrant.plugins = ["vagrant-vbguest"]
   config.vm.boot_timeout = 900
 
+  # config.vm.define "ubuntu" do |ubuntu|
+  #   ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
+  #   ubuntu.vm.box_version = "2204.0.2408"
+  #   ubuntu.vm.hostname= "WLSX01"
+  #   ubuntu.vm.network :private_network, ip: "10.0.0.10"
+  #   ubuntu.vm.provider "virtualbox" do |vb, override|
+  #     vb.memory = "8192"
+  #     vb.cpus ="2"
+  #     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+  #   end
+  #   ubuntu.vm.provision "shell" do |script|
+  #     script.path ="./provision/ubuntu_workstation.sh"
+  #   end
+  # end
+
   config.vm.define "ubuntu" do |ubuntu|
-    ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
-    ubuntu.vm.box_version = "2204.0.2408"
+    ubuntu.vm.box = "ubuntu/jammy64"
     ubuntu.vm.hostname= "WLSX01"
     ubuntu.vm.network :private_network, ip: "10.0.0.10"
     ubuntu.vm.provider "virtualbox" do |vb, override|
       vb.memory = "8192"
       vb.cpus ="2"
       vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
+      vb.customize ["modifyvm", :id, "--vram", "124"]
     end
     ubuntu.vm.provision "shell" do |script|
       script.path ="./provision/ubuntu_workstation.sh"

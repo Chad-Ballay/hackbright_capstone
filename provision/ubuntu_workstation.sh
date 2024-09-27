@@ -6,10 +6,17 @@ export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ###  MAIN  ###
 apt-get update
 
+apt-get -y install \
+  virtualbox-guest-additions-iso \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  ubuntu-desktop 
 
 #User Setup
 mkdir -m 755 /etc/skel/.config
 echo "set -o vi" >> /etc/skel/.profile
+su vagrant mkdir -m 755 ~vagrant/.config/
 touch /etc/skel/.config/gnome-initial-setup-done
 touch ~vagrant/.config/gnome-initial-setup-done
 
@@ -38,3 +45,5 @@ mkdir -m 655 /etc/dconf/db/local.d/
 echo "[org/gnome/shell]" > /etc/dconf/db/local.d/00-favorite-apps
 echo "favorite-apps = ['gedit.desktop', 'gnome-terminal.desktop', 'nautilus.desktop', 'google-chrome.desktop', 'bitwarden_bitwarden.desktop']" >> /etc/dconf/db/local.d/00-favorite-apps
 dconf update
+
+shutdown -r now

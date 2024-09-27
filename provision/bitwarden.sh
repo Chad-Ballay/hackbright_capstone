@@ -8,6 +8,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 
 apt-get update
 apt-get -y install \
+  virtualbox-guest-additions-iso \
   apt-transport-https \
   ca-certificates \
   curl \
@@ -22,13 +23,13 @@ apt-get -y install \
   containerd.io
 
 npm install -g maildev
-nohup maildev &
+pgrep -f maildev 1>/dev/null || nohup maildev &
 
 
 # User Setup
 groupadd -f docker
 usermod -aG docker vagrant
-useradd -m -s /bin/bash  q -p $(openssl passwd -1 bitwarden) bitwarden
+useradd -m -s /bin/bash -p $(openssl passwd -1 bitwarden) bitwarden
 usermod -aG docker bitwarden
 
 # Bitwarden
@@ -50,4 +51,5 @@ curl -Lso /opt/bitwarden/bwdata/scripts/run.sh "https://func.bitwarden.com/api/d
  && chmod 700 /opt/bitwarden/bwdata/scripts/run.sh
 chown bitwarden:bitwarden /opt/bitwarden/bwdata/scripts/run.sh
 
+shutdown -r now
 
