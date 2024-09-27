@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vagrant.plugins = ["vagrant-vbguest"]
+  config.vm.boot_timeout = 900
 
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
@@ -31,7 +32,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "bitwarden" do |bw|
     bw.vm.box = "gusztavvargadr/ubuntu-server-2204-lts"
     bw.vm.network :private_network, ip: "10.0.0.12"
-    #bw.vm.network :forwarded_port, guest: 443, host: 443, id: "https", auto_correct: true
+    bw.vm.network :forwarded_port, guest: 443, host: 443, auto_correct: true
+    bw.vm.network :forwarded_port, guest: 1080, host: 1080, auto_correct: true
     bw.vm.hostname = "bitwarden"
     bw.vm.provider "virtualbox" do |vb, override|
       vb.memory = "4096"
