@@ -1,1 +1,41 @@
 useradd -p "$(openssl passwd -6 $PASS)" $USER
+
+wiglaf.local
+n
+
+0655dbf7-d276-4503-ba88-b1f800515b7b
+rwsvBphZy2HNBgwBXx8O
+useradd
+N
+Y
+./bitwarden.sh start
+
+
+globalSettings__baseServiceUri__vault=https://10.0.0.12
+globalSettings__mail__replyToEmail=no-reply@10.0.0.12
+globalSettings__mail__smtp__host=10.0.0.12
+globalSettings__mail__smtp__port=1025
+globalSettings__mail__smtp__ssl=false
+globalSettings__mail__smtp__username=REPLACE
+globalSettings__mail__smtp__password=REPLACE
+adminSettings__admins=
+
+
+DOMAIN="10.0.0.12"
+
+
+mkdir -p $OUTPUT
+mkdir -p $OUTPUT
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_PATH="$DIR/$SCRIPT_NAME"
+OUTPUT="$DIR/bwdata"
+
+
+cd  /opt/bitwarden
+./bitwarden.sh updateself
+./bitwarden.sh update
+
+FILE_STRING=$(cat /vagrant/provision/global.override.env)
+echo $FILE_STRING
