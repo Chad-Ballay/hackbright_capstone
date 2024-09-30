@@ -39,41 +39,41 @@ curl -Lso /opt/bitwarden/bitwarden.sh "https://func.bitwarden.com/api/dl/?app=se
  && chmod 700 /opt/bitwarden/bitwarden.sh
 chown bitwarden:bitwarden /opt/bitwarden/bitwarden.sh
 
-curl -Lso /opt/bitwarden/docker-stub-US.zip https://github.com/bitwarden/server/releases/download/v2024.9.1/docker-stub-US.zip \
- && chmod 700 /opt/bitwarden/docker-stub-US.zip                                      
-chown bitwarden:bitwarden /opt/bitwarden/docker-stub-US.zip
-cd /opt/bitwarden/
-su bitwarden -c "unzip /opt/bitwarden/docker-stub-US.zip -d /opt/bitwarden/bwdata" 
+#curl -Lso /opt/bitwarden/docker-stub-US.zip https://github.com/bitwarden/server/releases/download/v2024.9.1/docker-stub-US.zip \
+# && chmod 700 /opt/bitwarden/docker-stub-US.zip                                      
+#chown bitwarden:bitwarden /opt/bitwarden/docker-stub-US.zip
+#cd /opt/bitwarden/
+#su bitwarden -c "unzip /opt/bitwarden/docker-stub-US.zip -d /opt/bitwarden/bwdata" 
 
-mkdir -m 755 /opt/bitwarden/bwdata/scripts
-chown bitwarden:bitwarden /opt/bitwarden/bwdata/scripts
-curl -Lso /opt/bitwarden/bwdata/scripts/run.sh "https://func.bitwarden.com/api/dl/?app=self-host&platform=linux&variant=run" \
- && chmod 700 /opt/bitwarden/bwdata/scripts/run.sh
-chown bitwarden:bitwarden /opt/bitwarden/bwdata/scripts/run.sh
+#mkdir -m 755 /opt/bitwarden/bwdata/scripts
+#chown bitwarden:bitwarden /opt/bitwarden/bwdata/scripts
+#curl -Lso /opt/bitwarden/bwdata/scripts/run.sh "https://func.bitwarden.com/api/dl/?app=self-host&platform=linux&variant=run" \
+# && chmod 700 /opt/bitwarden/bwdata/scripts/run.sh
+#chown bitwarden:bitwarden /opt/bitwarden/bwdata/scripts/run.sh
 
-oIFS=$IFS
-IFS="
-"
-set -a
-. /vagrant/provision/custom_values.env
-set +a
-envsubst < "/vagrant/provision/global.override.env" > /opt/bitwarden/bwdata/env/global.override.env
-IFS=$oIFS
-chmod 600 /opt/bitwarden/bwdata/env/global.override.env
-chown bitwarden:bitwarden /opt/bitwarden/bwdata/env/global.override.env
+#oIFS=$IFS
+#IFS="
+#"
+#set -a
+#. /vagrant/provision/custom_values.env
+#set +a
+#envsubst < "/vagrant/provision/global.override.env" > /opt/bitwarden/bwdata/env/global.override.env
+#IFS=$oIFS
+#chmod 600 /opt/bitwarden/bwdata/env/global.override.env
+#chown bitwarden:bitwarden /opt/bitwarden/bwdata/env/global.override.env
 
-cd /opt/bitwarden/bwdata/
-su bitwarden -c "openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout identity.key -out identity.crt -subj '/CN=Bitwarden IdentityServer' -days 10950"
-su bitwarden -c "openssl pkcs12 -export -out ./identity/identity.pfx -inkey identity.key -in identity.crt -passout pass:$IDENTITY_CERT_PASSWORD"
+#cd /opt/bitwarden/bwdata/
+#su bitwarden -c "openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout identity.key -out identity.crt -subj '/CN=Bitwarden IdentityServer' -days 10950"
+#su bitwarden -c "openssl pkcs12 -export -out ./identity/identity.pfx -inkey identity.key -in identity.crt -passout pass:$IDENTITY_CERT_PASSWORD"
 
-su bitwarden -c "mkdir /opt/bitwarden/bwdata/ssl/localhost"
-sed -i 's/bitwarden.example.com/localhost/g' /opt/bitwarden/bwdata/nginx/default.conf
-sed -i 's/ssl_trusted_certificate/#ssl_trusted_certificate/g' /opt/bitwarden/bwdata/nginx/default.conf
-sed -i 's/RANDOM_DATABASE_PASSWORD/$DB_PASSWORD/g' /opt/bitwarden/bwdata/env/mssql.override.env
-sed -i 's/bitwarden.example.com/localhost/g' /opt/bitwarden/bwdata/web/app-id.json
-USER_UID=`id -u bitwarden`
-USER_GID=`id -g bitwarden`
-echo "LOCAL_UID=`id -u bitwarden`" > /opt/bitwarden/bwdata/env/uid.env
-echo "LOCAL_GID=`id -g bitwarden`" >> /opt/bitwarden/bwdata/env/uid.env
-echo " `id -u bitwarden`
-shutdown -r now
+#su bitwarden -c "mkdir /opt/bitwarden/bwdata/ssl/localhost"
+#sed -i 's/bitwarden.example.com/localhost/g' /opt/bitwarden/bwdata/nginx/default.conf
+#sed -i 's/ssl_trusted_certificate/#ssl_trusted_certificate/g' /opt/bitwarden/bwdata/nginx/default.conf
+#sed -i 's/RANDOM_DATABASE_PASSWORD/$DB_PASSWORD/g' /opt/bitwarden/bwdata/env/mssql.override.env
+#sed -i 's/bitwarden.example.com/localhost/g' /opt/bitwarden/bwdata/web/app-id.json
+#USER_UID=`id -u bitwarden`
+#USER_GID=`id -g bitwarden`
+#echo "LOCAL_UID=`id -u bitwarden`" > /opt/bitwarden/bwdata/env/uid.env
+#echo "LOCAL_GID=`id -g bitwarden`" >> /opt/bitwarden/bwdata/env/uid.env
+#echo " `id -u bitwarden`
+#shutdown -r now
