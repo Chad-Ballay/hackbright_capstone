@@ -24,6 +24,11 @@ apt-get -y install \
 
 npm install -g maildev
 pgrep -f maildev 1>/dev/null || nohup maildev &
+crontab -l > /tmp/cron.temp
+echo "*/5 * * * * pgrep -f maildev 1>/dev/null || nohup maildev &" >> /tmp/cron.temp
+crontab /tmp/cron.temp
+rm /tmp/cron.temp
+
 
 
 # User Setup

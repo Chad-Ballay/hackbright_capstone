@@ -5,6 +5,20 @@
 | WLSX01 	| Ubuntu 22.04 User Desktop     	| 10.0.0.11 	| vagrant:vagrant                     	|
 | SLSX01 	| Ubuntu 22.04 Bitwarden Server 	| 10.0.0.12 	| vagrant:vagrant bitwarden:bitwarden 	|
 
+# Users
+| UserId      | Email                  | First_Name | Last_Name | Alternative_email          | Credentials                |
+|-------------|------------------------|------------|-----------|----------------------------|----------------------------|
+| david.perry | david.perry@test.local | David      | Perry     | david_perry9779@icloud.com | David_perry9779@icloud.com |
+| gavin.smith | gavin.smith@test.local | Gavin      | Smith     | gavin_smith9779@icloud.com | Gavin_smith9779@icloud.com |
+| james.jones | james.jones@test.local | James      | Jones     | james_jones9779@icloud.com | James_jones9779@icloud.com |
+| lane.pipes  | lane.pipes@test.local  | Lane       | Pipes     | chad.ballay@icloud.com     | Chad.ballay@icloud.com     |
+| chad.ballay | chad.ballay@gmail.com  | Chad       | Ballay    |                            | 5D2SN1xW9iWz               |
+
+# Links
+SMTP mailtrap http://10.0.0.12:1080/
+Bitwarden access https://10.0.0.12/
+
+
 ### WLSX01
 * Suppresses the initial welcome screen for end users.
 * Installs Chrome.

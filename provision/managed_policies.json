@@ -2,13 +2,15 @@
     "HomepageLocation": "https://www.google.com",
     "HomepageIsNewTabPage": false,
     "PasswordManagerEnabled": false,
+    "PasswordSharingEnabled": false,
+    "AutofillAddressEnabled": false,
+    "AutofillCreditCardEnabled": false,
+    "SyncDisabled": true,
     "DefaultBrowserSettingEnabled": true,
     "RestoreOnStartup": 1,
     "SafeBrowsingProtectionLevel": 1,
     "MaxConnectionsPerProxy": 99,
     "ExtensionInstallForcelist": [
-      "noondiphcddnnabmjcihcjfbhfklnnep",
-      "djflhoibgkdhkhhcedjiklpkjnoahfmg",
       "nngceckbapebfimnlniiiahkandclblb"
     ],
     "ManagedBookmarks": [

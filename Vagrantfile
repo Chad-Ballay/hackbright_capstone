@@ -1,9 +1,9 @@
 Vagrant.configure("2") do |config|
+  config.vm.boot_timeout = 900
+  config.vbguest.iso_path = "https://download.virtualbox.org/virtualbox/7.0.20/VBoxGuestAdditions_7.0.20.iso"
+  config.vbguest.auto_update = false
+  config.vbguest.auto_reboot = true
   config.vagrant.plugins = ["vagrant-vbguest"]
-  if Vagrant.has_plugin?("vagrant-vbguest") then
-    config.vbguest.auto_update = false
-  end
-#  config.vm.boot_timeout = 900
 
   # config.vm.define "ubuntu" do |ubuntu|
   #   ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
@@ -22,13 +22,14 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "ubuntu" do |ubuntu|
     ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
-    ubuntu.vm.box_version = "2204.0.2408"
     ubuntu.vm.hostname= "WLSX01"
     ubuntu.vm.network :private_network, ip: "10.0.0.10"
-    ubuntu.vm.provider "vmware_desktop" do |v, override|
-      v.vmx["memsize"] = "8192"
-      v.vmx["numvcpus"] = "2"
-      v.force_vmware_license = "workstation"  # force the licence for fix some vagrant plugin issue
+    ubuntu.vm.provider "virtualbox" do |vb|
+      vb.memory = "8192"
+      vb.cpus ="2"
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
+      vb.customize ["modifyvm", :id, "--vram", "32"]
     end
     ubuntu.vm.provision "shell" do |script|
       script.path ="./provision/ubuntu_workstation.sh"
@@ -40,25 +41,25 @@ Vagrant.configure("2") do |config|
     windows.vm.box_version = "2302.0.2408"
     windows.vm.hostname= "WWIN01"
     windows.vm.network :private_network, ip: "10.0.0.11"
-    windows.vm.provider "vmware_desktop" do |v, override|
-      v.vmx["memsize"] = "8192"
-      v.vmx["numvcpus"] = "2"
-      v.force_vmware_license = "workstation"  # force the licence for fix some vagrant plugin issue
+    windows.vm.provider "virtualbox" do |vb|
+      vb.memory = "8192"
+      vb.cpus ="2"
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     end
   end
 
   config.vm.define "bitwarden" do |bw|
     bw.vm.box = "gusztavvargadr/ubuntu-server-2204-lts"
-    bw.vm.box_version = "2204.0.2408"
-    bw.vm.hostname = "SLSX01"
     bw.vm.network :private_network, ip: "10.0.0.12"
-    bw.vm.network :forwarded_port, guest: 443, host: 8443, auto_correct: true
+    bw.vm.network :forwarded_port, guest: 443, host: 443, auto_correct: true
     bw.vm.network :forwarded_port, guest: 1080, host: 1080, auto_correct: true
-    
-    bw.vm.provider "vmware_desktop" do |v, override|
-      v.vmx["memsize"] = "8192"
-      v.vmx["numvcpus"] = "2"
-      v.force_vmware_license = "workstation"  # force the licence for fix some vagrant plugin issue
+    bw.vm.hostname = "bitwarden"
+    bw.vm.provider "virtualbox" do |vb|
+      vb.memory = "8192"
+      vb.cpus = "1"
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
+      vb.customize ["modifyvm", :id, "--vram", "32"]
     end
     bw.vm.provision "shell" do |script|
       script.path ="./provision/bitwarden.sh"
