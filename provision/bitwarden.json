@@ -3,7 +3,7 @@
         "extensions": {
             "nngceckbapebfimnlniiiahkandclblb": {
                 "environment": {
-                    "base": "https://bitwarden.wiglaf.net"
+                    "base": "https://10.0.0.12"
                 }
             }
         }
