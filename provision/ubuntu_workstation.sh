@@ -35,6 +35,7 @@ snap install bitwarden
 mkdir -m 755 -p /etc/opt/chrome/policies/managed
 cp /vagrant/provision/managed_policies.json /etc/opt/chrome/policies/managed/managed_policies.json
 cp /vagrant/provision/bitwarden.json /etc/opt/chrome/policies/managed/bitwarden.json
+cp /vagrant/provision/extension_settings.json /etc/opt/chrome/policies/managed/extension_settings.json
 chmod 644 /etc/opt/chrome/policies/managed/*json
 
 #Configure Favorites

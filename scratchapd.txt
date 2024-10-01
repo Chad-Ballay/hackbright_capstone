@@ -39,3 +39,5 @@ cd  /opt/bitwarden
 
 FILE_STRING=$(cat /vagrant/provision/global.override.env)
 echo $FILE_STRING
+useradd -m -s /bin/bash -p "$(openssl passwd -6 f00b4r)" david.perry
+
