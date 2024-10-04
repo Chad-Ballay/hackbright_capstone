@@ -39,5 +39,39 @@ cd  /opt/bitwarden
 
 FILE_STRING=$(cat /vagrant/provision/global.override.env)
 echo $FILE_STRING
-useradd -m -s /bin/bash -p "$(openssl passwd -6 f00b4r)" david.perry
 
+useradd -m -s /bin/bash -p "$(openssl passwd -6 david.perry@test.local)" david.perry
+useradd -m -s /bin/bash -p "$(openssl passwd -6 gavin.smith@test.local)" gavin.smith
+useradd -m -s /bin/bash -p "$(openssl passwd -6 james.jones@test.local)" james.jones
+useradd -m -s /bin/bash -p "$(openssl passwd -6  lane.pipes@test.local)" lane.pipes
+
+/etc/hosts
+10.0.0.12 SLSX01.test.local
+10.0.0.10 WLSX01.test.local
+10.0.0.13 WLSX02.test.local
+10.0.0.11 WWIN01.test.local
+
+/run/systemd/resolve/stub-resolv.conf
+search test.local attlocal.net
+
+cp /vagrant/provision/certificates/mkcert* /usr/local/share/ca-certificates/
+chmod 644 /usr/local/share/ca-certificates/
+update-ca-certificates
+dpkg-reconfigure ca-certificates
+
+
+apt install libnss3-tools
+for i in `find ~ -type d -name "nssdb*" -print`
+do
+   certutil -d $i -A -t"TC,," -n "MKCERT CA" -i /etc/ssl/certs/mkcert_development_CA_142801624892457134835584649225814393464.pem
+done
+
+NSS-SystemCerts
+
+ export NSS_DEFAULT_DB_TYPE="sql"
+
+cp -r /etc/pki /etc/skel/.pki
+mkdir -m 700 /etc/skel/snap/
+mkdir -m 755 /etc/skel/snap/bitwarden
+mkdir -m 755 /etc/skel/snap/bitwarden/120
+cp -r /etc/pki /etc/skel/snap/bitwarden/120/.pki

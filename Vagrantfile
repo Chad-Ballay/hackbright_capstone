@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
     bw.vm.network :private_network, ip: "10.0.0.12"
     bw.vm.network :forwarded_port, guest: 443, host: 443, auto_correct: true
     bw.vm.network :forwarded_port, guest: 1080, host: 1080, auto_correct: true
-    bw.vm.hostname = "bitwarden"
+    bw.vm.hostname = "SLSX01"
     bw.vm.provider "virtualbox" do |vb|
       vb.memory = "8192"
       vb.cpus = "1"
@@ -65,5 +65,22 @@ Vagrant.configure("2") do |config|
       script.path ="./provision/bitwarden.sh"
     end
   end  
+
+  config.vm.define "ubuntu03" do |ubuntu|
+    ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
+    ubuntu.vm.hostname= "WLSX03"
+    ubuntu.vm.network :private_network, ip: "10.0.0.14"
+    ubuntu.vm.provider "virtualbox" do |vb|
+      vb.memory = "8192"
+      vb.cpus ="2"
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
+      vb.customize ["modifyvm", :id, "--vram", "32"]
+    end
+    ubuntu.vm.provision "shell" do |script|
+      script.path ="./provision/ubuntu_workstation.sh"
+    end
+  end
+
 
 end

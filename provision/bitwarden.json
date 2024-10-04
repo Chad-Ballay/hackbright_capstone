@@ -3,7 +3,7 @@
         "extensions": {
             "nngceckbapebfimnlniiiahkandclblb": {
                 "environment": {
-                    "base": "https://10.0.0.12"
+                    "base": "https://slsx01.test.local"
                 }
             }
         }

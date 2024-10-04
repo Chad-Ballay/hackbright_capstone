@@ -20,7 +20,9 @@ apt-get -y install \
   docker-ce \
   docker-ce-cli \
   docker-compose-plugin \
-  containerd.io
+  containerd.io \
+  libnss3-tools \
+  mkcert
 
 npm install -g maildev
 pgrep -f maildev 1>/dev/null || nohup maildev &
@@ -28,8 +30,6 @@ crontab -l > /tmp/cron.temp
 echo "*/5 * * * * pgrep -f maildev 1>/dev/null || nohup maildev &" >> /tmp/cron.temp
 crontab /tmp/cron.temp
 rm /tmp/cron.temp
-
-
 
 # User Setup
 groupadd -f docker
@@ -43,6 +43,15 @@ chown -R bitwarden:bitwarden /opt/bitwarden
 curl -Lso /opt/bitwarden/bitwarden.sh "https://func.bitwarden.com/api/dl/?app=self-host&platform=linux" \
  && chmod 700 /opt/bitwarden/bitwarden.sh
 chown bitwarden:bitwarden /opt/bitwarden/bitwarden.sh
+
+#Certificate and CA
+mkdir -m 755 /opt/bitwarden/selfsignedcert
+chown -R bitwarden:bitwarden /opt/bitwarden/selfsignedcert
+cd /opt/bitwarden/selfsignedcert
+mkcert -install
+mkcert bitwarde.test.local "*.bitwarden.test.local" test.test localhost 127.0.0.1 ::1
+
+
 
 #curl -Lso /opt/bitwarden/docker-stub-US.zip https://github.com/bitwarden/server/releases/download/v2024.9.1/docker-stub-US.zip \
 # && chmod 700 /opt/bitwarden/docker-stub-US.zip                                      
