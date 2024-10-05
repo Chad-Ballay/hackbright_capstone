@@ -45,11 +45,10 @@ useradd -m -s /bin/bash -p "$(openssl passwd -6 gavin.smith@test.local)" gavin.s
 useradd -m -s /bin/bash -p "$(openssl passwd -6 james.jones@test.local)" james.jones
 useradd -m -s /bin/bash -p "$(openssl passwd -6  lane.pipes@test.local)" lane.pipes
 
-/etc/hosts
-10.0.0.12 SLSX01.test.local
 10.0.0.10 WLSX01.test.local
-10.0.0.13 WLSX02.test.local
 10.0.0.11 WWIN01.test.local
+10.0.0.12 SLSX01.test.local
+10.0.0.13 WLSX02.test.local
 
 /run/systemd/resolve/stub-resolv.conf
 search test.local attlocal.net
@@ -75,3 +74,21 @@ mkdir -m 700 /etc/skel/snap/
 mkdir -m 755 /etc/skel/snap/bitwarden
 mkdir -m 755 /etc/skel/snap/bitwarden/120
 cp -r /etc/pki /etc/skel/snap/bitwarden/120/.pki
+
+Setup file mount
+
+Install chrome
+
+net user "lane.pipes" lane.pipes@test.local /add
+
+c:\Windows\System32\Drivers\etc\hosts
+
+Install bitwarden
+https://SLSX01.test.local
+
+Import CA file
+
+install chrome extension
+https://chromewebstore.google.com/detail/bitwarden-password-manage/nngceckbapebfimnlniiiahkandclblb
+
+https://slsx01.test.local/#/send/RtZooFOIyUWwfrH8AGi-zw/xZ9_ZcAUxxjP5CUesSU-4w
