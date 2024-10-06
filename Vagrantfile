@@ -1,9 +1,16 @@
 Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 900
-  config.vbguest.iso_path = "https://download.virtualbox.org/virtualbox/7.0.20/VBoxGuestAdditions_7.0.20.iso"
-  config.vbguest.auto_update = false
-  config.vbguest.auto_reboot = true
-  config.vagrant.plugins = ["vagrant-vbguest"]
+  config.vagrant.plugins = ["vagrant-vbguest", "vagrant-timezone"]
+
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.iso_path = "https://download.virtualbox.org/virtualbox/7.0.20/VBoxGuestAdditions_7.0.20.iso"
+    config.vbguest.auto_update = false
+    config.vbguest.auto_reboot = true
+  end
+
+  if Vagrant.has_plugin?("vagrant-timezone")
+    config.timezone.value = "CST6CDT"
+  end
 
   # config.vm.define "ubuntu" do |ubuntu|
   #   ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"

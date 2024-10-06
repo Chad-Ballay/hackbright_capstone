@@ -49,5 +49,7 @@ https://help.gnome.org/admin/system-admin-guide/stable/desktop-favorite-applicat
 
 https://bitwarden.com/help/configure-clients-selfhost/
 
-https://github.com/Darki8/ChromeKiosk/blob/afb57d663b341576812c96f2bca2ed79879abd03/KioskChromeScript.sh#L110
+Bit Warden setup to use SCIM for user provisioning
+https://bitwarden.com/blog/streamline-employee-onboarding-to-bitwarden-with-scim-support/
 
+https://github.com/Darki8/ChromeKiosk/blob/afb57d663b341576812c96f2bca2ed79879abd03/KioskChromeScript.sh#L110

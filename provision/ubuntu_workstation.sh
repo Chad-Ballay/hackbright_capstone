@@ -5,6 +5,7 @@ export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
 ###  MAIN  ###
 apt-get update
+apt-get upgrade -y
 
 apt-get -y install \
   virtualbox-guest-additions-iso \
@@ -48,11 +49,13 @@ cp -r /etc/pki /etc/skel/snap/bitwarden/120/.pki
 
 
 #User Creation
-useradd -m -s /bin/bash -p "$(openssl passwd -6 david.perry@test.local)" david.perry
-useradd -m -s /bin/bash -p "$(openssl passwd -6 gavin.smith@test.local)" gavin.smith
-useradd -m -s /bin/bash -p "$(openssl passwd -6 james.jones@test.local)" james.jones
-useradd -m -s /bin/bash -p "$(openssl passwd -6  lane.pipes@test.local)" lane.pipes
-
+for i in `cat /vagrant/provision/users/users.unl`
+do
+  USER=`echo $i |cut -f1 -d\|`
+  EMAIL=`echo $i | cut -f1 -d\|`
+  PASSWORD=`echo $i | cut -f1 -d\|`
+  useradd -m -s /bin/bash -p "$(openssl passwd -6 $PASSWORD)" $USER
+done
 
 #Google Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -78,6 +81,5 @@ echo "[org/gnome/shell]" > /etc/dconf/db/local.d/00-favorite-apps
 echo "favorite-apps = ['gedit.desktop', 'gnome-terminal.desktop', 'nautilus.desktop', 'google-chrome.desktop', 'bitwarden_bitwarden.desktop']" >> /etc/dconf/db/local.d/00-favorite-apps
 dconf update
 
+apt-get update
 apt-get upgrade -y
-
-shutdown -r now
