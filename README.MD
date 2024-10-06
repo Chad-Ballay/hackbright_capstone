@@ -3,6 +3,7 @@
 |--------	|-------------------------------	|-----------	|-------------------------------------	|
 | WWIN01 	| Windows 11 User Desktop       	| 10.0.0.10 	| vagrant:vagrant                     	|
 | WLSX01 	| Ubuntu 22.04 User Desktop     	| 10.0.0.11 	| vagrant:vagrant                     	|
+| WLSX02 	| Ubuntu 22.04 User Desktop     	| 10.0.0.13 	| vagrant:vagrant                     	|
 | SLSX01 	| Ubuntu 22.04 Bitwarden Server 	| 10.0.0.12 	| vagrant:vagrant bitwarden:bitwarden 	|
 
 # Users

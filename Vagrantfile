@@ -73,10 +73,10 @@ Vagrant.configure("2") do |config|
     end
   end  
 
-  config.vm.define "ubuntu03" do |ubuntu|
+  config.vm.define "ubuntu02" do |ubuntu|
     ubuntu.vm.box = "gusztavvargadr/ubuntu-desktop-2204-lts"
-    ubuntu.vm.hostname= "WLSX03"
-    ubuntu.vm.network :private_network, ip: "10.0.0.14"
+    ubuntu.vm.hostname= "WLSX02"
+    ubuntu.vm.network :private_network, ip: "10.0.0.13"
     ubuntu.vm.provider "virtualbox" do |vb|
       vb.memory = "8192"
       vb.cpus ="2"
