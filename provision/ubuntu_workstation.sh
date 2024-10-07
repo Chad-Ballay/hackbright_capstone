@@ -52,9 +52,9 @@ cp -r /etc/pki /etc/skel/snap/bitwarden/120/.pki
 for i in `cat /vagrant/provision/users/users.unl`
 do
   USER=`echo $i |cut -f1 -d\|`
-  EMAIL=`echo $i | cut -f1 -d\|`
-  PASSWORD=`echo $i | cut -f1 -d\|`
-  useradd -m -s /bin/bash -p "$(openssl passwd -6 $PASSWORD)" $USER
+  EMAIL=`echo $i | cut -f2 -d\|`
+  PASSWORD=`echo $i | cut -f3 -d\|`
+  useradd -m -s /bin/bash -p "$(openssl passwd -6 $EMAIL)" $USER
 done
 
 #Google Chrome
