@@ -47,9 +47,9 @@ chown bitwarden:bitwarden /opt/bitwarden/bitwarden.sh
 #Certificate and CA
 mkdir -m 755 /opt/bitwarden/selfsignedcert
 chown -R bitwarden:bitwarden /opt/bitwarden/selfsignedcert
+cp /usr/local/share/ca-certificates/mkcert* /opt/bitwarden/selfsigned/cert
 cd /opt/bitwarden/selfsignedcert
-mkcert -install
-mkcert bitwarde.test.local "*.bitwarden.test.local" test.test localhost 127.0.0.1 ::1
+mkcert "*.test.local" localhost 127.0.0.1 ::1
 
 
 
